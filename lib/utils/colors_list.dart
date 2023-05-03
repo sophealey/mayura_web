@@ -1,0 +1,20 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+const kPrimaryColor = Color(0xff69409e);
+const kPrimaryLightColor = Color(0xffb483f3);
+const kBgDarkMode = Color(0xff303030);
+const kBackGroundColor = Color(0xfff2f2f7);
+const kDarkBackGroundColor = Color(0xff202020);
+const kLightPurple = Color(0xfff1ebf5);
+const kDarkGrey = Color(0xff191919);
+const klightGrey = Color(0xff313131);
+const kLogoBlue = Color(0xff3EC2F1);
+const kLogoLightBlue = Color(0xff73d3f5);
+const kLogoYellow = Color(0xffFFD549);
+const kLogoLightYellow = Color(0xfffcdc72);
+const kLogoPink = Color(0xffEF4C9D);
+const kLogoLightPink = Color(0xfffd7bbc);
+const kLogoGreen = Color(0xff79c147);
+const kLogoLightGreen = Color(0xff8dc268);
+const kShippingMethodColor = Color(0xff3EC2F1);
