@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mayura_web/model/product_model.dart';
 import 'package:mayura_web/page/catalog/catalog_service.dart';
+import 'package:mayura_web/utils/StringConstant.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class CatalogController extends SuperController{
@@ -11,14 +12,22 @@ class CatalogController extends SuperController{
  var catalogService = CatalogService();
  var catalogData = CatalogModel().obs;
  var productList = <Product>[].obs;
-
+ var categoryList = <SubCategory>[].obs;
+ var brandList = <SubCategory>[].obs;
  var productListExample = [].obs;
  var page = 1.obs;
-
  var isLastCarouselRecord = false.obs;
- ScrollController scrollController = ScrollController();
+ var isShowFilter = false.obs;
 
+ ScrollController scrollController = ScrollController();
  RefreshController refreshController = RefreshController(initialRefresh: false);
+
+ var specialFilter = <SubCategory>[
+   SubCategory(name: (kInStock.tr), isChecked: RxBool(false), id: 1),
+   SubCategory(name: (kOnSale.tr), isChecked: RxBool(false), id: 2),
+   SubCategory(name: (kDropShipping.tr), isChecked: RxBool(false), id: 3),
+   SubCategory(name: (kFastDelivery.tr), isChecked: RxBool(false), id: 4),
+ ].obs;
 
  var isPullToRefresh = false.obs;
   @override
@@ -49,6 +58,8 @@ class CatalogController extends SuperController{
     if (response.success??false){
       catalogData.value = response.data ?? CatalogModel();
       productList.addAll(catalogData.value.products ?? []);
+      categoryList.addAll(catalogData.value.categories ?? []);
+      brandList.addAll(catalogData.value.brands ?? []);
 
       printInfo(info: 'size mariya : ${productList.length}');
 

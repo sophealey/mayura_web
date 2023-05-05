@@ -36,7 +36,7 @@ class PopularCategory extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return InkWell(
                   onTap: () {
-                    Get.to(CatalogPage());
+                    Get.to(CatalogPage(), routeName: 'catalog');
                   },
                   child: Column(
                     children: [
