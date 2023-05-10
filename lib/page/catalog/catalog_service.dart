@@ -29,7 +29,7 @@ class CatalogService extends BaseService {
     var url = '';
     var checkedId = keyIds.isEmpty ? '' : keyIds;
     var brandId = brandIds ?? [];
-    url = 'http://gateway.mayura.com.kh/product/product-by-category?language=en&dropShipping=0&page=$page&categoryId=[69]&categoryIds=[]&brandIds=[]&isDiscount=0&sortFilter=popular&isFbm=0&isInStock=0&keyword=';
+    url = 'http://gateway.mayura.com.kh/product/product-by-category?language=en&dropShipping=0&page=$page&categoryId=$categoryIds&categoryIds=[]&brandIds=[]&isDiscount=0&sortFilter=popular&isFbm=0&isInStock=0&keyword=';
 
     var response = await apiHelper.fetchDataAuth(url);
     return BaseApiResponse<CatalogModel>.fromJson(response, (data) => CatalogModel.fromJson(data));

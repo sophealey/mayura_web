@@ -14,7 +14,7 @@ import 'package:mayura_web/utils/components/top_bar_view.dart';
 class ProductDetailScreen extends StatelessWidget {
   //GetView<ProductDetailController>
   final controller = Get.find<ProductDetailController>();
-  ProductDetailScreen({Key? key, String proId = ''}) : super(key: key) {
+  ProductDetailScreen({Key? key, required String proId}) : super(key: key) {
     print('kk99 $proId');
     controller.proId.value = proId;
     controller.imgPath.value = '';

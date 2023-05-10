@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
 
           // binding: ControllerBinding(),
         ),
-        GetPage(name: '/second', page: () => CatalogPage()),
+        GetPage(name: '/second', page: () => CatalogPage(cateId: [],)),
       ],
       initialBinding: ControllerBinding(),
     );

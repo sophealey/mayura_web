@@ -1,9 +1,12 @@
+
+
 import 'package:adaptive_navbar/adaptive_navbar.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:mayura_web/page/catalog/catalog_controller.dart';
+import 'package:mayura_web/product_detail/product_detail_screen.dart';
 import 'package:mayura_web/utils/StringConstant.dart';
 import 'package:mayura_web/utils/colors_list.dart';
 import 'package:mayura_web/utils/components/top_bar_view.dart';
@@ -15,7 +18,8 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class CatalogPage extends GetView<CatalogController> {
  //// final controller = Get.find<CatalogController>();
-  CatalogPage({Key? key}) : super(key: key){
+  CatalogPage({Key? key, required List<int> cateId}) : super(key: key){
+    controller.cateId.value = cateId;
     controller.getProducts();
 
   }
@@ -229,6 +233,7 @@ class CatalogPage extends GetView<CatalogController> {
                                     itemBuilder: (context, index) {
                                       return ProductTile(
                                           controller.productList[index], (){
+                                            Get.to(ProductDetailScreen(proId: controller.productList[index].id.toString()), routeName: 'product?id=${controller.productList[index].id??0}');
                                       }
                                       );
                                     },

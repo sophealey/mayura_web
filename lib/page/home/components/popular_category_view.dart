@@ -39,7 +39,7 @@ class PopularCategoryView extends GetView<HomeController> {
                   var popularCat = controller.popularCategories[index];
                   return InkWell(
                     onTap: () {
-                      Get.to(CatalogPage());
+                      Get.to(CatalogPage(cateId: [controller.popularCategories[index].id??0],), routeName: 'catalogpage?id=${controller.popularCategories[index].id??0}');
                     },
                     child: Column(
                       children: [

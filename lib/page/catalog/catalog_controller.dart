@@ -11,6 +11,7 @@ class CatalogController extends SuperController{
 
  var catalogService = CatalogService();
  var catalogData = CatalogModel().obs;
+ var cateId = <int>[].obs;
  var productList = <Product>[].obs;
  var categoryList = <SubCategory>[].obs;
  var brandList = <SubCategory>[].obs;
@@ -47,7 +48,7 @@ class CatalogController extends SuperController{
 
     var response = await catalogService.getProductsByCat(
       keyIds: [],
-      categoryIds: [],
+      categoryIds: cateId.value,
       brandIds: [],
       isFbm: false,
       isDiscount: false,
