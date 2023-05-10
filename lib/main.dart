@@ -4,6 +4,8 @@ import 'package:mayura_web/page/catalog/catalog_controller.dart';
 import 'package:mayura_web/page/catalog/catalog_page.dart';
 import 'package:mayura_web/page/home/home_controller.dart';
 import 'package:mayura_web/page/home/home_page.dart';
+import 'package:mayura_web/utils/locale_string.dart';
+import 'package:mayura_web/utils/theme_controller.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,21 +17,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final themeController = Get.put(ThemeController());
     return GetMaterialApp(
       title: 'Mayura Flutter',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
+
+      themeMode: themeController.theme,
+      translations: LocaleString(),
+      supportedLocales: [
+        Locale('en'), // Spanish, no country code
+        Locale('km'), // Spanish, no country code
+      ],
+      locale: themeController.localization,
       getPages: [
         GetPage(
           name: '/',
@@ -48,7 +47,8 @@ class ControllerBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => HomeController());
-    Get.create<CatalogController>(() => CatalogController());
+    Get.lazyPut(() => CatalogController());
+   // Get.create<CatalogController>(() => CatalogController());
 
   }
 }
