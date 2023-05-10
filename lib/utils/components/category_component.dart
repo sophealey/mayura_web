@@ -8,70 +8,62 @@ class CategoryComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 60,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-            color: ColorManager.getGrayBlack(),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 15,
-              ),
-              Icon(Icons.menu),
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: Text(
-                  'All Categories',
-                  style: menuTextStyle,
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(width: 1, color: ColorManager.getGrayBlack()),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        children: [
+          Container(
+            height: 60,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+              color: ColorManager.getGrayBlack(),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 15,
                 ),
-              ),
-              Icon(Icons.keyboard_arrow_down),
-              SizedBox(
-                width: 15,
-              ),
-            ],
+                Icon(Icons.menu),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: Text(
+                    'All Categories',
+                    style: menuTextStyle,
+                  ),
+                ),
+                Icon(Icons.keyboard_arrow_down),
+                SizedBox(
+                  width: 15,
+                ),
+              ],
+            ),
           ),
-        ),
-        CategoryMenuTile(
-          icon: Icons.phone_android,
-          title: 'Cell Phones',
-        ),
-        CategoryMenuTile(
-          icon: Icons.phone_android,
-          title: 'Cell Phones',
-        ),
-        CategoryMenuTile(
-          icon: Icons.phone_android,
-          title: 'Cell Phones',
-        ),
-        CategoryMenuTile(
-          icon: Icons.phone_android,
-          title: 'Cell Phones',
-        ),
-        CategoryMenuTile(
-          icon: Icons.phone_android,
-          title: 'Cell Phones',
-        ),
-        CategoryMenuTile(
-          icon: Icons.phone_android,
-          title: 'Cell Phones',
-        ),
-        CategoryMenuTile(
-          icon: Icons.phone_android,
-          title: 'Cell Phones',
-        ),
-        CategoryMenuTile(
-          icon: Icons.phone_android,
-          title: 'Cell Phones',
-        ),
-      ],
+          ListView.separated(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return CategoryMenuTile(
+                  icon: Icons.phone_android,
+                  title: 'Cell Phones',
+                );
+              },
+              separatorBuilder: (context, index) {
+                return Divider(
+                  // indent: 15,
+                  // endIndent: 15,
+                  height: 1,
+                  color: ColorManager.getGrayBlack(),
+                );
+              },
+              itemCount: 10),
+        ],
+      ),
     );
   }
 }
@@ -89,7 +81,7 @@ class CategoryMenuTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 50,
-      decoration: BoxDecoration(border: Border.all(width: 1, color: ColorManager.getGrayBlack())),
+      // decoration: BoxDecoration(border: Border.all(width: 1, color: ColorManager.getGrayBlack())),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -102,11 +94,14 @@ class CategoryMenuTile extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              'Cell Phone',
+              title,
               style: menuTextStyle,
             ),
           ),
-          Icon(Icons.keyboard_arrow_right),
+          Icon(
+            Icons.keyboard_arrow_right,
+            color: ColorManager.getLightGrey(),
+          ),
           SizedBox(
             width: 15,
           ),

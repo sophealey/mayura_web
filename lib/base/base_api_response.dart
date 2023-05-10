@@ -1,8 +1,6 @@
-
-
 class BaseApiResponse<T> {
   int? statusCode;
-  bool? success;
+  bool success;
   String? message;
   T? data;
   List<T>? listObject;
@@ -17,36 +15,36 @@ class BaseApiResponse<T> {
     this.emptyListData,
   });
 
-  factory BaseApiResponse.fromJson(
-      Map<String, dynamic> json, Function(Map<String, dynamic>) create) {
+  factory BaseApiResponse.fromJson(Map<String, dynamic> json, Function(Map<String, dynamic>) create) {
     return BaseApiResponse<T>(
-        statusCode: json["status_code"],
-        success: json["success"],
-        message: json["message"],
-        data: json["data"] != null ? create(json["data"]) : json["data"]);
+      statusCode: json["status_code"],
+      success: json["success"] ?? false,
+      message: json["message"],
+      data: json["data"] != null ? create(json["data"]) : json["data"],
+    );
   }
 
-  factory BaseApiResponse.fromListJson(
-      Map<String, dynamic> json, Function(List<dynamic>) listObject) {
+  factory BaseApiResponse.fromListJson(Map<String, dynamic> json, Function(List<dynamic>) listObject) {
     return BaseApiResponse<T>(
-        statusCode: json["status_code"],
-        success: json["success"],
-        message: json["message"],
-        listObject: json["data"] != null ? listObject(json["data"]) : []);
+      statusCode: json["status_code"],
+      success: json["success"] ?? false,
+      message: json["message"],
+      listObject: json["data"] != null ? listObject(json["data"]) : [],
+    );
   }
-  factory BaseApiResponse.fromEmptyList(
-      Map<String, dynamic> json, List<dynamic> listObject) {
+  factory BaseApiResponse.fromEmptyList(Map<String, dynamic> json, List<dynamic> listObject) {
     return BaseApiResponse<T>(
-        statusCode: json["status_code"],
-        success: json["success"],
-        message: json["message"],
-        emptyListData: json["data"] ?? []);
+      statusCode: json["status_code"],
+      success: json["success"] ?? false,
+      message: json["message"],
+      emptyListData: json["data"] ?? [],
+    );
   }
 
   factory BaseApiResponse.fromSubmitJson(Map<String, dynamic> json) {
     return BaseApiResponse<T>(
       statusCode: json["status_code"],
-      success: json["success"],
+      success: json["success"] ?? false,
       message: json["message"],
     );
   }
@@ -55,6 +53,6 @@ class BaseApiResponse<T> {
         'statusCode': statusCode,
         'success': success,
         'message': message,
-        'data': data
+        'data': data,
       };
 }

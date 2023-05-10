@@ -1,8 +1,8 @@
 // const String endPoint = 'http://172.30.31.195';
 
 // const String apiGetWay = 'http://v2-api-gateway.hlhmarketplace.com';
-// const String apiGetWay = 'http://gateway.mayura.com.kh';
-const String apiGetWay = 'http://172.30.31.69/mayura/api-gateway/public';
+const String apiGetWay = 'http://gateway.mayura.com.kh';
+// const String apiGetWay = 'http://172.30.31.69/mayura/api-gateway/public';
 // 'http://172.30.31.13/mayura/api-gateway/public';
 // 'http://mayura.mydemoapp.xyz/api-gateway';
 

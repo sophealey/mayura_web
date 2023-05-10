@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mayura_web/page/home/home_controller.dart';
 import 'package:mayura_web/utils/color_manager.dart';
 
 import '../../../utils/responsive_widget.dart';
 import '../../../utils/text_styles.dart';
 
-class PopularBrand extends StatelessWidget {
+class PopularBrand extends GetView<HomeController> {
   const PopularBrand({Key? key}) : super(key: key);
 
   @override
@@ -31,37 +33,40 @@ class PopularBrand extends StatelessWidget {
         ),
         SizedBox(
           height: 110,
-          child: ListView.builder(
-              // controller: brandScroller,
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: 20,
-              itemBuilder: (BuildContext context, int index) {
-                return Column(
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        margin: const EdgeInsets.all(8),
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: const Color(0xffF2F2F2),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: ClipRRect(
-                          child: Image.network(
-                            'http://gateway.mayura.com.kh/storage/brand/21050120230317080130.png',
-                            fit: BoxFit.contain,
-                            width: 130,
-                            height: 70,
-                            // isCache: true,
+          child: Obx(
+            () => ListView.builder(
+                // controller: brandScroller,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: controller.brandModel.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var brand = controller.brandModel[index];
+                  return Column(
+                    children: [
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          margin: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: const Color(0xffF2F2F2),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: ClipRRect(
+                            child: Image.network(
+                              brand.icon ?? '',
+                              fit: BoxFit.contain,
+                              width: 130,
+                              height: 70,
+                              // isCache: true,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                );
-              }),
+                    ],
+                  );
+                }),
+          ),
         ),
       ],
     );
