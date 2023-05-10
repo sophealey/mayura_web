@@ -105,9 +105,9 @@ class ProductTile extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('\$${product.price}',
+                      Text('\$${product.priceFormat}',
                           style: TextStyle(fontSize: 18, color: ColorManager.getPurpleLightPurple() )),
-                      Text('${product.priceFormat}',
+                      Text('${product.finalPrice}',
                         style: const TextStyle(fontSize: 16, color: Colors.grey,
                           decoration: TextDecoration.lineThrough, ),),
                     ],

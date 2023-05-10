@@ -30,6 +30,10 @@ class CatalogController extends SuperController{
  ].obs;
 
  var isPullToRefresh = false.obs;
+
+ //test pagination
+ var pageCount = 0.obs;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -60,8 +64,10 @@ class CatalogController extends SuperController{
       productList.addAll(catalogData.value.products ?? []);
       categoryList.addAll(catalogData.value.categories ?? []);
       brandList.addAll(catalogData.value.brands ?? []);
+      pageCount.value = ((catalogData.value.total??0.0)/20).ceil();
 
-      printInfo(info: 'size mariya : ${productList.length}');
+
+      printInfo(info: 'size mariya : ${pageCount} - ${pageCount.ceil()}');
 
     }
 

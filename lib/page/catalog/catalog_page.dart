@@ -1,10 +1,12 @@
 import 'package:adaptive_navbar/adaptive_navbar.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:mayura_web/page/catalog/catalog_controller.dart';
 import 'package:mayura_web/utils/StringConstant.dart';
 import 'package:mayura_web/utils/colors_list.dart';
+import 'package:mayura_web/utils/components/top_bar_view.dart';
 import 'package:mayura_web/utils/labeled_checkbox.dart';
 import 'package:mayura_web/utils/product_tile.dart';
 import 'package:mayura_web/utils/color_manager.dart';
@@ -21,101 +23,72 @@ class CatalogPage extends GetView<CatalogController> {
   @override
   Widget build(BuildContext context) {
     RangeValues _currentRangeValues = const RangeValues(40, 80);
-
+    var screenSize = MediaQuery.of(context).size;
     printInfo(info: 'Screen :${MediaQuery.of(context).size.width}');
     return Theme(
       data: Theme.of(context),
       child: Scaffold(
-        appBar: AdaptiveNavBar(
-          backgroundColor: ColorManager.getPurpleLightPurple(),
-          actionsIconTheme: null,
-          automaticallyImplyLeading: false,
-          screenWidth:  MediaQuery.of(context).size.width, navBarItems: [
-          NavBarItem(
-            text: "Home",
-            onTap: () {
-              Navigator.pushNamed(context, "routeName");
-            },
+        appBar: PreferredSize(
+          preferredSize: Size(screenSize.width, 150),
+          child: Column(
+            children: const [
+              MyAccountView(),
+              TopBarContent(),
+            ],
           ),
-
-          NavBarItem(
-            text: "Catalog",
-            onTap: () {
-              //    Navigator.pushNamed(context, "catalog_page");
-              Get.off(CatalogPage(), routeName: 'catalog');
-            },
-          ),
-          NavBarItem(
-            text: "About Us",
-            onTap: () {
-              Navigator.pushNamed(context, "routeName");
-            },
-          ),
-          NavBarItem(
-            text: "About Us",
-            onTap: () {
-              Navigator.pushNamed(context, "routeName");
-
-            },
-          ),
-        ],
         ),
-        body: SmartRefresher(
-          //  onRefresh: controller.onRefresh,
-          controller: controller.refreshController,
-          scrollController: controller.scrollController,
-          enablePullDown: true,
-          header: WaterDropMaterialHeader(
-            backgroundColor: ColorManager.getPurpleLightPurple(),
-          ),
-          child: SingleChildScrollView(
-            // controller: controller.scrollController,
-            physics: const BouncingScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Stack(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Visibility(
-                        visible: ResponsiveWidget.isSmallScreen(context),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextButton.icon(     // <-- TextButton
-                              onPressed: () {
-                                controller.isShowFilter.value = true;
-                                printInfo(info: 'open ${controller.isShowFilter.value}');
-                              },
-                              icon: const Icon(
-                                Icons.filter_list_sharp,
-                                color: Colors.black,
-                                size: 24.0,
-                              ),
-                              label: Text(kFilterProducts.tr, style: TextStyle(color: Colors.black),),
-                            ),
-
-
-                            SizedBox(height:  20,),
-
-                            Divider(
-                              height: 1,
-                              thickness: 1,
-                            ),
-                            SizedBox(height:  20,),
-                          ],
-                        ),),
-
-                      Row(
+        body: SingleChildScrollView(
+          // controller: controller.scrollController,
+          physics: const BouncingScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Stack(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Visibility(
+                      visible: ResponsiveWidget.isSmallScreen(context),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          TextButton.icon(     // <-- TextButton
+                            onPressed: () {
+                              controller.isShowFilter.value = true;
+                              printInfo(info: 'open ${controller.isShowFilter.value}');
+                            },
+                            icon: const Icon(
+                              Icons.filter_list_sharp,
+                              color: Colors.black,
+                              size: 24.0,
+                            ),
+                            label: Text(kFilterProducts.tr, style: TextStyle(color: Colors.black),),
+                          ),
 
-                          Visibility(
+
+                          SizedBox(height:  20,),
+
+                          Divider(
+                            height: 1,
+                            thickness: 1,
+                          ),
+                          SizedBox(height:  20,),
+                        ],
+                      ),),
+
+                    Center(
+                      child: Container(
+                       // width: 1140,
+                        width: 1240,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+
+                            Visibility(
                               visible: !ResponsiveWidget.isSmallScreen(context),
                               child: Expanded(
-                                  flex: 1,
+                                  flex: 2,
                                   child: Card(
                                     elevation: 4,
                                     child: Container(
@@ -240,42 +213,110 @@ class CatalogPage extends GetView<CatalogController> {
                                   )
                               ),),
 
-                          Expanded(
-                            flex: 4,
-                            child: Obx(() => AlignedGridView.count(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            // controller: controller.scrollController,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount:  controller.productList.value.length,
-                            crossAxisCount:  ResponsiveWidget.isSmallScreen(context) ? 2: 4,
-                            mainAxisSpacing: 14,
-                            crossAxisSpacing: 14,
-                            itemBuilder: (context, index) {
-                              return ProductTile(
-                                  controller.productList[index], (){
-                              }
-                              );
-                            },
-                          )),),
 
-                        ],
+                            Expanded(
+                              flex: 7,
+                              child: Column(
+                                children: [
+                                  Obx(() => AlignedGridView.count(
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemCount:  controller.productList.value.length,
+                                    crossAxisCount:  ResponsiveWidget.isSmallScreen(context) ? 2: 4,
+                                    mainAxisSpacing: 14,
+                                    crossAxisSpacing: 14,
+                                    itemBuilder: (context, index) {
+                                      return ProductTile(
+                                          controller.productList[index], (){
+                                      }
+                                      );
+                                    },
+                                  )),
+                                  SizedBox(
+                                    height: 50,
+                                  ),
+                                  Container(
+                                    width: 500,
+                                    height: 30,
+                                    child: Row(
+                                      children: [
+                                        InkWell(
+                                          onTap: (){
+
+                                          },
+                                          child: Container(
+                                              padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                                            margin: EdgeInsets.only(left: 4, right: 4),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(width: 1, color: ColorManager.getBlackWhite(),),
+                                              borderRadius: BorderRadius.all(
+                                                    Radius.circular(4),
+                                                  ),
+                                            ),
+                                            child: Text('1')),
+                                        ),
+                                        InkWell(
+                                          onTap: (){
+                                            controller.page.value = 2;
+                                            controller.getProducts();
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                                            margin: EdgeInsets.only(left: 4, right: 4),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(width: 1, color: ColorManager.getBlackWhite(),),
+                                              borderRadius: BorderRadius.all(
+                                                    Radius.circular(4),
+                                                  ),
+                                            ),
+                                            child: Text('2')),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                                          margin: EdgeInsets.only(left: 4, right: 4),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(width: 1, color: ColorManager.getBlackWhite(),),
+                                            borderRadius: BorderRadius.all(
+                                                  Radius.circular(4),
+                                                ),
+                                          ),
+                                          child: Text('3')),
+
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),),
+
+                          ],
+                        ),
                       ),
+                    ),
 
-                    ],
-                  ),
-                  Obx(() =>
-                      Visibility(
-                          visible: controller.isShowFilter.value ,
-                          child:  Container(
-                            //height: 200,
-                            width: MediaQuery.of(context).size.width/1.5,
-                            color: Colors.red,
-                            child: FilterData(controller),
-                          ))
-                  ),
-                ],
-              ),
+
+
+                  ],
+
+                ),
+
+
+                Obx(() =>
+                    Visibility(
+                        visible: controller.isShowFilter.value ,
+                        child:  Container(
+                          color: Colors.black.withOpacity(0.7),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Container(
+                              //height: 200,
+                              width: MediaQuery.of(context).size.width/1.5,
+                              child: FilterData(controller),
+                            ),
+                          ),
+                        ))
+                ),
+              ],
             ),
           ),
         ),
@@ -308,7 +349,7 @@ class FilterData extends GetView<CatalogController> {
   Widget build(BuildContext context) {
     RangeValues _currentRangeValues = const RangeValues(40, 80);
     return Card(
-      elevation: 4,
+     // elevation: 4,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
         child: Column(

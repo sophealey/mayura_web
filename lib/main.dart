@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mayura_web/model/product_detail_model.dart';
 import 'package:mayura_web/page/catalog/catalog_controller.dart';
 import 'package:mayura_web/page/catalog/catalog_page.dart';
 import 'package:mayura_web/page/home/home_controller.dart';
 import 'package:mayura_web/page/home/home_page.dart';
+import 'package:mayura_web/product_detail/product_detail_controller.dart';
+import 'package:mayura_web/product_detail/product_detail_screen.dart';
+import 'package:mayura_web/utils/local_storage.dart';
 import 'package:mayura_web/utils/locale_string.dart';
 import 'package:mayura_web/utils/theme_controller.dart';
 
@@ -48,6 +52,8 @@ class ControllerBinding implements Bindings {
   void dependencies() {
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => CatalogController());
+    Get.lazyPut(() => ProductDetailController());
+    Get.lazyPut(() => LocalStorageController());
    // Get.create<CatalogController>(() => CatalogController());
 
   }
