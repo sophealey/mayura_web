@@ -15,7 +15,8 @@ class ProductTile extends StatelessWidget {
     return InkWell(
       onTap: onPress,
       child: Card(
-        elevation: 2,
+        shadowColor: Colors.white54,
+        elevation: 10,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -31,14 +32,18 @@ class ProductTile extends StatelessWidget {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Image.network(
-                      product.thumbnail??'',
+                      product.thumbnail ?? '',
                       fit: BoxFit.contain,
                     ),
                   ),
                   Positioned(
-                    top: 1,right: 1,
-                      child: Image.asset('images/heart.png', width: 24, height: 24,)
-                  ),
+                      top: 1,
+                      right: 1,
+                      child: Image.asset(
+                        'images/heart.png',
+                        width: 24,
+                        height: 24,
+                      )),
                   Positioned(
                     top: 1,
                     child: Visibility(
@@ -60,23 +65,19 @@ class ProductTile extends StatelessWidget {
                     ),
                   ),
                 ],
-
-
               ),
               const SizedBox(height: 8),
               Text(
-                product.brand??'',
+                product.brand ?? '',
                 maxLines: 2,
-                style:
-                    const TextStyle(fontFamily: 'avenir', fontWeight: FontWeight.bold),
+                style: const TextStyle(fontFamily: 'avenir', fontWeight: FontWeight.bold),
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 4),
               Text(
-                product.name??'',
+                product.name ?? '',
                 maxLines: 2,
-                style:
-                    const TextStyle(fontFamily: 'avenir', fontWeight: FontWeight.w500),
+                style: const TextStyle(fontFamily: 'avenir', fontWeight: FontWeight.w500),
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 8),
@@ -95,7 +96,6 @@ class ProductTile extends StatelessWidget {
                 ),
                 onRatingUpdate: (rating) {
                   printInfo(info: rating.toString());
-
                 },
               ),
               const SizedBox(height: 8),
@@ -105,14 +105,17 @@ class ProductTile extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('\$${product.priceFormat}',
-                          style: TextStyle(fontSize: 18, color: ColorManager.getPurpleLightPurple() )),
-                      Text('${product.finalPrice}',
-                        style: const TextStyle(fontSize: 16, color: Colors.grey,
-                          decoration: TextDecoration.lineThrough, ),),
+                      Text('${product.priceFormat}', style: TextStyle(fontSize: 18, color: ColorManager.getPurpleLightPurple())),
+                      Text(
+                        '${product.finalPrice}',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                          decoration: TextDecoration.lineThrough,
+                        ),
+                      ),
                     ],
                   ),
-
                   const SizedBox(height: 8),
                   Container(
                     padding: const EdgeInsets.all(8),
@@ -128,12 +131,8 @@ class ProductTile extends StatelessWidget {
                       color: ColorManager.getPurpleLightPurple(),
                     ),
                   ),
-
                 ],
               ),
-
-
-
             ],
           ),
         ),

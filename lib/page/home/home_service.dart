@@ -6,6 +6,7 @@ import 'package:mayura_web/base/base_service.dart';
 
 import '../../model/home_menu.dart';
 import '../../model/home_model.dart';
+import '../../model/product_carousel_model.dart';
 import '../../network/api_end_point.dart';
 
 class HomeService extends BaseService {
@@ -22,5 +23,10 @@ class HomeService extends BaseService {
   Future<BaseApiResponse> getHomeData(int homeMenu) async {
     var response = await apiHelper.fetchDataAuth('${ApiEndPoint.homePage}home_menu_id=$homeMenu&language=en');
     return BaseApiResponse<HomeModel>.fromJson(response, (data) => HomeModel.fromJson(data));
+  }
+
+  Future<BaseApiResponse> getProductCarousel(int homeMenu, int page) async {
+    var response = await apiHelper.fetchDataAuth(ApiEndPoint.carouselProduct + 'home_menu_id=$homeMenu&page=$page');
+    return BaseApiResponse<ProductCarousel>.fromJson(response, (data) => ProductCarousel.fromJson(data));
   }
 }

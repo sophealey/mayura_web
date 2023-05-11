@@ -11,64 +11,64 @@ class PopularBrand extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Row(
-          children: [
-            SizedBox(
-              width: 15,
-            ),
-            Expanded(
-              child: Text(
-                'Popular Brans',
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Popular Brans'.toUpperCase(),
+                  style: menuTextStyle,
+                ),
               ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: const ViewAllBox(),
-            ),
-          ],
-        ),
-        SizedBox(
-          height: 110,
-          child: Obx(
-            () => ListView.builder(
-                // controller: brandScroller,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemCount: controller.brandModel.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var brand = controller.brandModel[index];
-                  return Column(
-                    children: [
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          margin: const EdgeInsets.all(8),
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: const Color(0xffF2F2F2),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: ClipRRect(
-                            child: Image.network(
-                              brand.icon ?? '',
-                              fit: BoxFit.contain,
-                              width: 130,
-                              height: 70,
-                              // isCache: true,
+              InkWell(
+                onTap: () {},
+                child: const ViewAllBox(),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 120,
+            child: Obx(
+              () => ListView.builder(
+                  // controller: brandScroller,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: controller.brandModel.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var brand = controller.brandModel[index];
+                    return Column(
+                      children: [
+                        InkWell(
+                          onTap: () {},
+                          child: Container(
+                            margin: const EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: const Color(0xffF2F2F2),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: ClipRRect(
+                              child: Image.network(
+                                brand.icon ?? '',
+                                fit: BoxFit.contain,
+                                width: 128,
+                                height: 70,
+                                // isCache: true,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  );
-                }),
+                      ],
+                    );
+                  }),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:mayura_web/page/catalog/catalog_page.dart';
+import 'package:mayura_web/page/home/components/best_selling_view.dart';
 import 'package:mayura_web/page/home/components/popular_shop.dart';
 import 'package:mayura_web/page/home/home_controller.dart';
 import 'package:mayura_web/utils/color_manager.dart';
@@ -17,6 +18,7 @@ import 'components/account_view.dart';
 import 'components/main_menu.dart';
 import 'components/popular_brand.dart';
 import 'components/popular_category_view.dart';
+import 'components/product_carousel_view.dart';
 import 'components/top_slideshow.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -31,7 +33,7 @@ class HomePage extends GetView<HomeController> {
         data: Theme.of(context),
         child: Scaffold(
           key: _key,
-          backgroundColor: Colors.white, //ColorManager.getGrayBlack(),
+          // backgroundColor: Colors.white, //ColorManager.getGrayBlack(),
           appBar: ResponsiveWidget.isSmallScreen(context)
               ? AppBar(
                   iconTheme: IconThemeData(color: Colors.white),
@@ -129,6 +131,17 @@ class HomePage extends GetView<HomeController> {
                             height: 10,
                           ),
                           PopularShopView(),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          BestSelling(),
+
+                          /**Start Carousel Product*/
+                          SizedBox(
+                            height: 10,
+                          ),
+                          ProductCarouselView(),
+                          /**End Carousel Product */
 
                           // PopularCategory(),
                         ],
