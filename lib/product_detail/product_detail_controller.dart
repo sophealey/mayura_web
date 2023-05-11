@@ -10,6 +10,7 @@ import 'package:mayura_web/utils/shared_manager.dart';
 
 class ProductDetailController extends BaseController {
 
+  var cateName = ''.obs;
   var currentPage = 0.obs;
   var proId = ''.obs;
   var imgPath = ''.obs;
@@ -61,7 +62,7 @@ class ProductDetailController extends BaseController {
     print('getprodetail99');
     isLoading.value = true;
     var response = await productDetailService.getProductDetailById(proId.value);
-    if (response.success ?? false) {
+    if (response.success) {
       isLoading.value = false;
       productDetail.value = response.data;
 
@@ -89,7 +90,7 @@ class ProductDetailController extends BaseController {
       // Future.delayed(const Duration(milliseconds: 1000), () {
       //   isShowDefaultImg.value = false;
       // });
-
+      print('image size : ${productDetail.value.image?.length}');
     } else {
       isLoading.value = false;
     }

@@ -19,6 +19,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class CatalogPage extends GetView<CatalogController> {
  //// final controller = Get.find<CatalogController>();
   CatalogPage({Key? key, required List<int> cateId}) : super(key: key){
+    controller.productList.value.clear();
     controller.cateId.value = cateId;
     controller.getProducts();
 
@@ -233,7 +234,7 @@ class CatalogPage extends GetView<CatalogController> {
                                     itemBuilder: (context, index) {
                                       return ProductTile(
                                           controller.productList[index], (){
-                                            Get.to(ProductDetailScreen(proId: controller.productList[index].id.toString()), routeName: 'product?id=${controller.productList[index].id??0}');
+                                            Get.to(ProductDetailScreen(proId: controller.productList[index].id.toString(), cateName: controller.cateId.toString(),), routeName: 'product/${controller.productList[index].name??0}');
                                       }
                                       );
                                     },
@@ -299,12 +300,9 @@ class CatalogPage extends GetView<CatalogController> {
                       ),
                     ),
 
-
-
                   ],
 
                 ),
-
 
                 Obx(() =>
                     Visibility(
