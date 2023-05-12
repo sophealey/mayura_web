@@ -107,10 +107,13 @@ class ProductDetailScreen extends StatelessWidget {
            child: Align(
              alignment: Alignment.center,
              child: Obx(() => Container(
-                 width: controller.isLoading.value  ? 50: 1240,
+                 width: controller.isLoading.value ? 40:  1240,
                  child: Obx(() => controller.isLoading.value ? CircularProgressIndicator(color: kPrimaryColor) : Column(
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children: [
+                     SizedBox(
+                       height: 20,
+                     ),
                      Text('Home / ${controller.cateName.value} / ${controller.productDetail.value.name}'),
                      SizedBox(
                        height: 10,
@@ -118,7 +121,11 @@ class ProductDetailScreen extends StatelessWidget {
 
                      ResponsiveWidget.isSmallScreen(context) ?
                      Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
                        children: [
+                         SizedBox(
+                           height: 10,
+                         ),
                          Obx(() => ImageSection(controller.productDetail.value)),
                          Container(
                            margin: EdgeInsets.all(14),
@@ -131,7 +138,7 @@ class ProductDetailScreen extends StatelessWidget {
                        mainAxisAlignment: MainAxisAlignment.start,
                        crossAxisAlignment: CrossAxisAlignment.start,
                        children: [
-                         Obx(() => ImageSection(controller.productDetail.value)),
+                         Expanded(flex: 1 , child: Obx(() => ImageSection(controller.productDetail.value)),),
                          SizedBox(width: 40,),
                          Expanded(
                              flex: 2,
@@ -152,7 +159,7 @@ class ProductDetailScreen extends StatelessWidget {
 
                    ],
                  ),)
-             )),
+             ),)
            ),
 
           )
@@ -167,52 +174,53 @@ class ImageSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    return Expanded(
-      flex: 1,
-      child: Column(
-        children: [
-          Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black12)
-              ),
-            child: Image.network(
-              product.thumbnail??'',
-              fit: BoxFit.contain,
-              width: screenSize.width/(ResponsiveWidget.isSmallScreen(context) ? 1: 3 ),
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.all( 20),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.black12)
             ),
+
+          child: Image.network(
+            product.thumbnail??'',
+            fit: BoxFit.contain,
+            width: screenSize.width/(ResponsiveWidget.isSmallScreen(context) ? 1: 3 ),
           ),
-
-
-          Container(
-            height: 150,
-            margin: EdgeInsets.only(top: 20),
-            child:  ListView.builder(
-              itemCount: product.image?.length,
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                return  Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black12)
-                  ),
-                  margin: EdgeInsets.only(right: 4),
-                  child: Image.network(
-                    product.image?[index].path??'',
-                    fit: BoxFit.contain,
-
-                  ),
-                );
-              },
-            ),
-          )
+        ),
 
 
 
+        Container(
+          height: 150,
+          margin: EdgeInsets.only(top: 20),
+          child:  ListView.builder(
+            itemCount: product.image?.length,
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (BuildContext context, int index) {
+              return  Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black12)
+                ),
+                margin: EdgeInsets.only(right: 4),
+                child: Image.network(
+                  product.image?[index].path??'',
+                  fit: BoxFit.contain,
+
+                ),
+              );
+            },
+          ),
+        )
 
 
-        ],
-      ),
+
+
+
+
+      ],
     );
   }
 }
@@ -348,7 +356,9 @@ class DetailSection extends StatelessWidget {
             ),
           ),
 
-
+          SizedBox(
+            height: 20,
+          ),
           Text(kDescription.tr , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
           SizedBox(
             height: 10,
