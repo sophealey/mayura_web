@@ -7,10 +7,12 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:mayura_web/model/product_detail_model.dart';
 import 'package:mayura_web/model/product_model.dart';
+import 'package:mayura_web/page/home/components/account_view.dart';
 import 'package:mayura_web/product_detail/product_detail_controller.dart';
 import 'package:mayura_web/utils/StringConstant.dart';
 import 'package:mayura_web/utils/color_manager.dart';
 import 'package:mayura_web/utils/colors_list.dart';
+import 'package:mayura_web/utils/components/category_component.dart';
 import 'package:mayura_web/utils/components/top_bar_view.dart';
 import 'package:mayura_web/utils/responsive_widget.dart';
 
@@ -38,7 +40,7 @@ class ProductDetailScreen extends StatelessWidget {
     );
     return html;
   }
-
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
   @override
   Widget build(BuildContext context) {
     // controller.addKeyboardListener(context);
@@ -47,65 +49,110 @@ class ProductDetailScreen extends StatelessWidget {
     return  Theme(
         data: Theme.of(context),
         child: Scaffold(
-          appBar: PreferredSize(
-          preferredSize: Size(screenSize.width, 150),
-          child: Column(
-              children: const [
-                MyAccountView(),
-                TopBarContent(),
+            appBar: ResponsiveWidget.isSmallScreen(context)
+                ? AppBar(
+              iconTheme: IconThemeData(color: Colors.white),
+              title: Text(
+                'Mayura',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              centerTitle: true,
+              backgroundColor: kPrimaryColor,
+              elevation: 0,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Icon(Icons.search),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Icon(Icons.shopping_cart_outlined),
+                ),
+                InkWell(
+                  onTap: () {
+                    _key.currentState?.openEndDrawer();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Icon(Icons.person),
+                  ),
+                ),
               ],
+            )
+                : PreferredSize(
+              preferredSize: Size(screenSize.width, 150),
+              child: Column(
+                children: [
+                  const MyAccountView(),
+                  const TopBarContent(),
+                ],
+              ),
             ),
-          ),
+            drawer: Drawer(
+              child: Column(
+                children: [
+                  CategoryComponent(),
+                ],
+              ),
+            ),
+            endDrawer: Drawer(
+              backgroundColor: Colors.white,
+              child: AccountView(),
+            ),
          body: SingleChildScrollView(
            child: Align(
              alignment: Alignment.center,
-             child: Container(
-               width: 1240,
-               child: Obx(() => controller.isLoading.value ? Container(width: 50, height: 50 ,child: CircularProgressIndicator(color: kPrimaryColor)) : Column(
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 children: [
-                   Text('Home / ${controller.cateName.value} / ${controller.productDetail.value.name}'),
-                   SizedBox(
-                     height: 10,
-                   ),
+             child: Obx(() => Container(
+                 width: controller.isLoading.value  ? 50: 1240,
+                 child: Obx(() => controller.isLoading.value ? CircularProgressIndicator(color: kPrimaryColor) : Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                     Text('Home / ${controller.cateName.value} / ${controller.productDetail.value.name}'),
+                     SizedBox(
+                       height: 10,
+                     ),
 
-                   ResponsiveWidget.isSmallScreen(context) ?
-                       Column(
-                         children: [
-                           Obx(() => ImageSection(controller.productDetail.value)),
-                           Container(
-                             margin: EdgeInsets.all(14),
-                             color: Colors.white,
-                             child: Obx(() => DetailSection(controller.productDetail.value)),
-                           )
-                         ],
+                     ResponsiveWidget.isSmallScreen(context) ?
+                     Column(
+                       children: [
+                         Obx(() => ImageSection(controller.productDetail.value)),
+                         Container(
+                           margin: EdgeInsets.all(14),
+                           color: Colors.white,
+                           child: Obx(() => DetailSection(controller.productDetail.value)),
+                         )
+                       ],
 
-                       ): Row(
-                     mainAxisAlignment: MainAxisAlignment.start,
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                       Obx(() => ImageSection(controller.productDetail.value)),
-                       SizedBox(width: 40,),
-                       Expanded(
-                         flex: 2,
-                           child: DetailSection(controller.productDetail.value))
-
-
-
-                     ],
-                   ),
-
-                   Row(
-                     children: [
-
-                       Text(reviewed.tr),
-                     ],
-                   )
+                     ): Row(
+                       mainAxisAlignment: MainAxisAlignment.start,
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Obx(() => ImageSection(controller.productDetail.value)),
+                         SizedBox(width: 40,),
+                         Expanded(
+                             flex: 2,
+                             child: DetailSection(controller.productDetail.value))
 
 
-                 ],
-               ),)
-             ),
+
+                       ],
+                     ),
+
+                     Row(
+                       children: [
+
+                         Text(reviewed.tr),
+                       ],
+                     )
+
+
+                   ],
+                 ),)
+             )),
            ),
 
           )

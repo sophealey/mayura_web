@@ -47,7 +47,7 @@ class PopularCategoryView extends GetView<HomeController> {
                     onTap: () {
                       Get.to(CatalogPage(
                         cateId: [popularCat.id ?? 0],
-                      ));
+                      ), routeName: 'catalogpage/${popularCat.id}');
                     },
                     child: SizedBox(
                       width: ResponsiveWidget.isSmallScreen(context) ? 100 : 160,
