@@ -80,6 +80,7 @@ class CategoryMenuTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       height: 50,
       // decoration: BoxDecoration(border: Border.all(width: 1, color: ColorManager.getGrayBlack())),
       child: Row(
