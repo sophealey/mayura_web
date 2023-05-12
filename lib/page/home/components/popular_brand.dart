@@ -12,7 +12,7 @@ class PopularBrand extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
+      margin: EdgeInsets.only(left: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -55,7 +55,7 @@ class PopularBrand extends GetView<HomeController> {
                               child: Image.network(
                                 brand.icon ?? '',
                                 fit: BoxFit.contain,
-                                width: 128,
+                                width: 130,
                                 height: 70,
                                 // isCache: true,
                               ),
